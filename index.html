@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泰國觀光：繁榮與挑戰的平衡</title>
+    <!-- Google Maps API -->
+    <script>
+        const apiKey = ""; 
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Re-using existing library."):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+            key: apiKey,
+            v: "weekly",
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f4c81;
+            --accent: #ffd700;
+            --success: #2e8b57;
+            --danger: #b22222;
+            --bg-light: #fdfdfd;
+            --text-dark: #2c3e50;
+            --bg-accent: rgba(15, 76, 129, 0.04);
+            --bg-warm: rgba(255, 215, 0, 0.02);
+            --thai-pattern: url('https://t4.ftcdn.net/jpg/04/73/47/65/360_F_473476520_jfL74mcJmayUhrwfgYxZ0j27BDaqr646.jpg');
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 65vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
+                        url('https://res.cloudinary.com/cdn-connections/image/upload/c_limit,w_3840/f_auto/q_auto:best/v1746008069/Destinations/Asia/Thailand/TOURS/Grand%20Tour%20Thailand/Header_Thailand_Winter?_a=BAVAZGBy0');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin: 0;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.6);
+        }
+
+        /* Navigation Bar - Moved Below Hero */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-item {
+            margin: 0 25px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: 0.3s;
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-item:hover::after, .nav-item.active::after {
+            width: 80%;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--primary);
+        }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.8s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gallery Sections */
+        .gallery-section {
+            padding: 60px 20px 80px;
+            text-align: center;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)), var(--thai-pattern);
+            background-size: 600px;
+        }
+
+        .gallery-content-wrapper { max-width: 1200px; margin: 0 auto; }
+
+        .intro-text {
+            max-width: 850px;
+            margin: 30px auto 50px;
+            line-height: 1.8;
+            color: #555;
+            font-size: 1.1rem;
+            text-align: justify;
+            background: rgba(255,255,255,0.7);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            height: 350px;
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        .gallery-item .overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            color: white; padding: 25px; opacity: 0; transition: 0.3s; text-align: left;
+        }
+        .gallery-item:hover .overlay { opacity: 1; }
+
+        /* Main Analysis Block */
+        .analysis-wrapper { padding: 80px 0; background-attachment: fixed; }
+        .main-container {
+            max-width: 1100px; width: 92%; margin: 0 auto;
+            background: white; padding: 40px; border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .mode-switcher { text-align: center; margin-bottom: 40px; }
+        .btn { padding: 14px 30px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin: 0 10px; transition: 0.3s; }
+        .btn-positive { background: var(--success); color: white; }
+        .btn-challenge { background: var(--danger); color: white; }
+
+        #map { height: 500px; width: 100%; border-radius: 25px; background: #eee; position: relative; }
+
+        /* Tips Specific */
+        .tips-box {
+            background: #fff; border-left: 8px solid var(--accent);
+            padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 1200px; margin: 50px auto 0;
+        }
+
+        footer { padding: 60px 0; background: var(--primary); color: white; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <!-- First Element: Hero -->
+    <div class="hero">
+        <h1>Amazing Thailand</h1>
+        <p>探索輝煌文化與自然奇蹟，同時承諾永續未來</p>
+    </div>
+
+    <!-- Second Element: Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-item active" onclick="showPage('page1', this)">旅行資訊</div>
+        <div class="nav-item" onclick="showPage('page2', this)">美食與文化</div>
+    </nav>
+
+    <!-- Content Pages -->
+    <div id="page1" class="page active">
+        <section class="gallery-section">
+            <div class="gallery-content-wrapper">
+                <h2>絕美泰國．瑰麗光影</h2>
+                
+                <div class="intro-text">
+                    泰國，這個被譽為「微笑之國」的東南亞明珠，以其豐富多樣的地景與深厚的歷史底蘊吸引著全球旅人。從曼谷那充滿現代感卻又保留古老信仰的天際線，到泰北清邁與清萊散發出的寧靜藝術氣息，泰國展現了一種獨特的包容力。在南部，安達曼海的碧綠海水與細緻沙灘是無數人的夢幻天堂；而在中部，古老的阿育陀耶遺址靜默地訴說著往昔大城王朝的輝煌。
+                </div>
+
+                <div class="gallery-grid">
+                    <div class="gallery-item" style="background-image: url('https://cdn.tourradar.com/s3/serp/1500x800/4600_t8afNwa2.jpg');">
+                        <div class="overlay">
+                            <h4>曼谷玉佛寺</h4>
+                            <p>泰國最神聖的象徵</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://asianinspirations.com.au/wp-content/uploads/2020/01/663-03ChiangRai.jpg');">
+                        <div class="overlay">
+                            <h4>清萊藝術</h4>
+                            <p>北國獨有的雅致文化與寺廟工藝</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://ik.imagekit.io/travalot/development/resources/attachments/2025/6/23/f6fbaa20-679d-11f0-9d53-b3954422cf0f.jpg?tr=f-webp:q-85');">
+                        <div class="overlay">
+                            <h4>海島天堂</h4>
+                            <p>清澈見底的安達曼海景緻</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://asiaexchange.org/wp-content/uploads/2023/03/Studying-Abroad-in-Spring-or-Fall-Semester_-Part-2-Thailand-5.jpg');">
+                        <div class="overlay">
+                            <h4>都會脈動</h4>
+                            <p>曼谷的天際線與無限活力</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="analysis-wrapper">
+            <div class="main-container">
+                <h2 style="text-align:center;">深度洞察：觀光發展的兩面性</h2>
+                <div class="mode-switcher">
+                    <button class="btn btn-positive" onclick="updateApp('positive')">✨ 繁榮景點</button>
+                    <button class="btn btn-challenge" onclick="updateApp('challenge')">⚠️ 警示區域</button>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px;">
+                    <div id="infoCard" style="padding: 25px; border-radius: 20px; border-left: 10px solid var(--success); background: #f0fdf4;">
+                        <h3 id="cardTitle">正向發展優勢</h3>
+                        <ul id="cardList" style="line-height: 2;">
+                            <li>細白沙灘與熱帶島嶼景觀</li>
+                            <li>深厚的文化底蘊與歷史寺廟</li>
+                            <li>強大的觀光產業帶動地方就業</li>
+                        </ul>
+                    </div>
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page2" class="page">
+        <section class="gallery-section">
+            <div class="gallery-content-wrapper">
+                <h2>舌尖上的泰國：美食與文化</h2>
+                <p>探索泰國最引以為傲的飲食文化，體驗酸、辣、鹹、甜與香料的完美平衡</p>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item" style="background-image: url('https://www.foodnext.net/dispPageBox/getFile/GetImg.aspx?FileLocation=%2FPJ-FOODNEXT%2FFiles%2F&FileName=photo-74978-i.jpg');">
+                        <div class="overlay">
+                            <h4>冬蔭功 (Tom Yum Goong)</h4>
+                            <p>泰國靈魂蝦湯，結合香茅、南薑與辣椒的經典滋味。</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://www.eatingwell.com/thmb/X8n8s2xKfmMf9qUJj1WtCatbacc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/EWL-shrimp-pad-thai-step-05-1190-87e6eec4f9ec48f288489d7f06ea01fc.jpg');">
+                        <div class="overlay">
+                            <h4>泰式炒河粉 (Pad Thai)</h4>
+                            <p>聞名國際的街頭美食，Q彈河粉配上花生碎與鮮蝦。</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://thumbs.dreamstime.com/b/thai-food-som-tum-spicy-papaya-salad-steamed-pork-sausage-406479949.jpg');">
+                        <div class="overlay">
+                            <h4>青木瓜沙拉 (Som Tum)</h4>
+                            <p>來自東北的爽口驚喜，酸辣交織的脆爽口感與香料香氣。</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=80');">
+                        <div class="overlay">
+                            <h4>綠咖哩 (Green Curry)</h4>
+                            <p>濃郁椰奶香氣與獨門香料調配，溫潤卻帶有勁道的層次。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tips-box" style="text-align: left;">
+                    <h3>💡 泰國旅遊小撇步</h3>
+                    <ul style="line-height: 2; padding-left: 20px;">
+                        <li><b>尊重信仰：</b>進入寺廟請穿著莊重，遮蓋肩膀與膝蓋，並脫鞋以示敬意。</li>
+                        <li><b>問候禮儀：</b>合十禮 (Wai) 是最誠摯的打招呼方式，微笑是您最好的語言。</li>
+                        <li><b>飲食安全：</b>品嚐街頭美食時，選擇人潮較多的攤位，並優先選擇烹煮過的熱食。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 Amazing Thailand Insight. v2.2.4 | 永續旅遊，從你我開始。</p>
+    </footer>
+
+    <script>
+        function showPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            element.classList.add('active');
+            
+            // Scroll to the top of the navbar so it sticks there
+            const navbar = document.querySelector('.navbar');
+            window.scrollTo({
+                top: navbar.offsetTop,
+                behavior: 'smooth'
+            });
+            
+            if(pageId === 'page1') { setTimeout(initMap, 100); }
+        }
+
+        let googleMap;
+        let markers = [];
+        const locations = [
+            { name: "曼谷", pos: { lat: 13.7563, lng: 100.5018 } },
+            { name: "普吉", pos: { lat: 7.8804, lng: 98.3923 } },
+            { name: "清邁", pos: { lat: 18.7883, lng: 98.9853 } }
+        ];
+
+        async function initMap() {
+            if(!document.getElementById("map")) return;
+            try {
+                const { Map } = await google.maps.importLibrary("maps");
+                googleMap = new Map(document.getElementById("map"), {
+                    center: { lat: 13.5, lng: 100.5 }, zoom: 5,
+                    mapId: "DEMO_MAP_ID"
+                });
+                renderMarkers('positive');
+            } catch (e) {}
+        }
+
+        function renderMarkers(mode) {
+            if (!googleMap) return;
+            markers.forEach(m => m.setMap(null));
+            markers = [];
+            const color = mode === 'positive' ? '#2e8b57' : '#b22222';
+            locations.forEach(loc => {
+                const marker = new google.maps.Marker({
+                    map: googleMap, position: loc.pos,
+                    icon: { path: google.maps.SymbolPath.CIRCLE, scale: 10, fillColor: color, fillOpacity: 0.9, strokeColor: '#fff', strokeWeight: 2 }
+                });
+                markers.push(marker);
+            });
+        }
+
+        function updateApp(mode) {
+            const card = document.getElementById('infoCard');
+            const title = document.getElementById('cardTitle');
+            const list = document.getElementById('cardList');
+            if (mode === 'positive') {
+                card.style.background = '#f0fdf4'; card.style.borderLeftColor = '#2e8b57';
+                title.innerText = '正向發展優勢';
+                list.innerHTML = '<li>細白沙灘與熱帶島嶼</li><li>深厚文化底蘊與歷史寺廟</li><li>觀光產業帶動地方就業</li>';
+            } else {
+                card.style.background = '#fef2f2'; card.style.borderLeftColor = '#b22222';
+                title.innerText = '面臨的挑戰';
+                list.innerHTML = '<li>熱門景點過度觀光化</li><li>主要城市交通問題</li><li>環境廢棄物處理壓力</li>';
+            }
+            renderMarkers(mode);
+        }
+
+        window.onload = initMap;
+    </script>
+</body>
+</html>
